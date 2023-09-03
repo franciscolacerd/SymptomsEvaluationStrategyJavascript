@@ -23,26 +23,22 @@ symptomsEvaluation.entities = {
             this.symptoms = symptoms;
         }
     },
-    symptoms: class {
-        constructor() {
-            this.chestPain = "Chest pain";
-            this.numbnessInArm = "Numbness in arm";
-        }
+    symptoms: {
+        chestPain: "Chest pain",
+        numbnessInArm: "Numbness in arm"
     },
-    illness: class {
-        constructor() {
-            this.hearthAttack = "Possible heart attack. Referring for urgent treatment.";
-            this.notHearthAttack = "Not indicative of a heart attack. Continuous monitoring.";
-            this.hearthBurn = "Possible heart burn. Referring for treatment.";
-            this.notHearthBurn = "Not indicative of a heart burn. Continuous monitoring.";
-        }
+    illness: {
+        heartAttack: "Possible heart attack. Referring for urgent treatment.",
+        notHeartAttack: "Not indicative of a heart attack. Continuous monitoring.",
+        heartBurn: "Possible heart burn. Referring for treatment.",
+        notHeartBurn: "Not indicative of a heart burn. Continuous monitoring."
     },
     doctor: class {
-        constructor(strategy) {
+        defineStrategy = (strategy) => {
             this.strategy = strategy;
         }
         evaluateSymptoms = (pacient) => {
-            this.strategy.evaluateSymptoms(pacient);
+            return this.strategy.evaluateSymptoms(pacient);
         }
     }
 };
@@ -52,10 +48,10 @@ symptomsEvaluation.strategies = {
         evaluateSymptoms = (pacient) => {
             if (pacient.symptoms.includes(symptomsEvaluation.entities.symptoms.numbnessInArm) &&
                 pacient.symptoms.includes(symptomsEvaluation.entities.symptoms.chestPain)) {
-                return new symptomsEvaluation.entities.evaluation(true, false, symptomsEvaluation.entities.illness.hearthAttack);
+                return new symptomsEvaluation.entities.evaluation(true, false, symptomsEvaluation.entities.illness.heartAttack);
             }
             else {
-                return new symptomsEvaluation.entities.evaluation(false, false, symptomsEvaluation.entities.illness.notHearthAttack);
+                return new symptomsEvaluation.entities.evaluation(false, false, symptomsEvaluation.entities.illness.notHeartAttack);
             }
         };
     },
@@ -63,10 +59,10 @@ symptomsEvaluation.strategies = {
         evaluateSymptoms = (pacient) => {
             if (pacient.symptoms.length === 1 &&
                 pacient.symptoms.includes(symptomsEvaluation.entities.symptoms.chestPain)) {
-                return new symptomsEvaluation.entities.evaluation(false, true, symptomsEvaluation.entities.illness.hearthBurn);
+                return new symptomsEvaluation.entities.evaluation(false, true, symptomsEvaluation.entities.illness.heartBurn);
             }
             else {
-                return new symptomsEvaluation.entities.evaluation(false, false, symptomsEvaluation.entities.illness.notHearthBurn);
+                return new symptomsEvaluation.entities.evaluation(false, false, symptomsEvaluation.entities.illness.notHeartBurn);
             }
         };
     }
